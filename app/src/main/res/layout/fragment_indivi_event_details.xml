@@ -1,49 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/scrollView" >
-
-    <LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1">
+        android:layout_height="wrap_content">
+
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/TextViewDetail"
-            android:text="Matches we organise are: Singles,Doubles and Mixed Doubles"
-            android:id="@+id/tvInfo" />
+            android:id="@+id/imageView"
+            android:background="@mipmap/ic_badminton"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Student Apex Coodrinators :"
-            android:textStyle="bold"
-            android:id="@+id/tvCoordinators" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView" />
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/tvApexF"
-            android:layout_marginLeft="100dp"
-           />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/tvApexM"
-            android:layout_marginLeft="200dp"
-             />
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

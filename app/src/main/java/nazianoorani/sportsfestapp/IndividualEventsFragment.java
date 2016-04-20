@@ -1,6 +1,7 @@
 package nazianoorani.sportsfestapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -32,14 +33,21 @@ public class IndividualEventsFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+        Intent intent = new Intent(getActivity(),DetailsActivity.class);
         switch (v.getId()){
             case R.id.imgBadminton :
                 Toast.makeText(getContext(),"Badminton Details",Toast.LENGTH_SHORT).show();
+                intent.putExtra("event",1);
+                getActivity().startActivity(intent);
                 break;
             case R.id.imgLT :
                 Toast.makeText(getContext(),"LT Details",Toast.LENGTH_SHORT).show();
+                intent.putExtra("event",2);
+                getActivity().startActivity(intent);
                 break;
             case R.id.imgTT :
+                intent.putExtra("event",3);
+                getActivity().startActivity(intent);
                 Toast.makeText(getContext(),"TT Details",Toast.LENGTH_SHORT).show();
                 break;
         }
