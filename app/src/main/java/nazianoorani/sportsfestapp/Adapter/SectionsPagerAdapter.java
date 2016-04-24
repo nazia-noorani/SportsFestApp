@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import nazianoorani.sportsfestapp.IndividualEventsFragment;
 import nazianoorani.sportsfestapp.PlaceholderFragment;
+import nazianoorani.sportsfestapp.TeamEventsFragment;
 
 /**
  * Created by nazianoorani on 24/02/16.
@@ -26,6 +27,8 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 return new IndividualEventsFragment();
+            case 1:
+                return new TeamEventsFragment();
 
         }
         return PlaceholderFragment.newInstance(position + 1);

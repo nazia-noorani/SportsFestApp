@@ -20,13 +20,13 @@ public class DetailsActivity extends AppCompatActivity {
         int eventNo;
         Bundle bundle = new Bundle();
         if(getIntent().hasExtra("event")){
-            eventNo = getIntent().getIntExtra("event",1);
+            eventNo = getIntent().getIntExtra("event",0);
             bundle.putInt("event",eventNo);
         }
         FragmentManager  fm = getSupportFragmentManager();
         Fragment fragment = new DetailsIndividualFragment();
         fragment.setArguments(bundle);
-        fm.beginTransaction().replace(R.id.fragment_container,new DetailsIndividualFragment()).commit();
+        fm.beginTransaction().replace(R.id.fragment_container,fragment).commit();
     }
 
 }
