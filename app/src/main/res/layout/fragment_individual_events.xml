@@ -1,130 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
-    <LinearLayout
-        android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="10dp"
+    android:background="#fff"
+    android:clickable="true">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_indivi_events"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
 
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:cardCornerRadius="4dp"
-            android:layout_margin="5dp">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:id="@+id/imgBadminton" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#88000000"
-                    android:text="Badminton"
-                    style="@style/TxtView"
-                    android:layout_gravity="bottom"/>
-            </FrameLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:cardCornerRadius="4dp"
-            android:layout_margin="5dp">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:id="@+id/imgTT" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Table Tennis"
-                    style="@style/TxtView"
-                    android:layout_gravity="bottom"/>
-            </FrameLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:cardCornerRadius="4dp"
-            android:layout_margin="5dp">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:id="@+id/imgLT"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Lawn Tennis"
-                    android:layout_gravity="bottom"
-                    style="@style/TxtView"
-                    />
-            </FrameLayout>
-        </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:cardCornerRadius="4dp"
-            android:layout_margin="5dp">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:id="@+id/imgAthltcs"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Athletics"
-                    style="@style/TxtView"
-                    android:layout_gravity="bottom"
-                    />
-            </FrameLayout>
-        </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:cardCornerRadius="4dp"
-            android:layout_margin="5dp">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:id="@+id/imgChess"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Chess"
-                    style="@style/TxtView"
-                    android:layout_gravity="bottom"/>
-            </FrameLayout>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

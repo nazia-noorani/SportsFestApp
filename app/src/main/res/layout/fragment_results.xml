@@ -26,8 +26,9 @@
             android:padding="18dp"
             android:textSize="20sp"
             android:typeface="serif"
+            android:textColor="#000"
             android:textStyle="bold"
-            android:text="TEAM 3"
+            android:text="SRM"
 
             />
                 <TextView
@@ -60,7 +61,8 @@
                 android:textSize="20sp"
                 android:typeface="serif"
                 android:textStyle="bold"
-                android:text="TEAM 3"
+                android:textColor="#000"
+                android:text="KIET"
                 />
             <TextView
                 android:id="@+id/txt_runners"
@@ -89,7 +91,8 @@
                 android:textSize="20sp"
                 android:typeface="serif"
                 android:textStyle="bold"
-                android:text=" TEAM 3"
+                android:textColor="#000"
+                android:text=" HRIT"
                 />
             <TextView
                 android:id="@+id/txt_sec_runners"

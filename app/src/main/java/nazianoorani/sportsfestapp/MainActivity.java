@@ -1,11 +1,14 @@
 package nazianoorani.sportsfestapp;
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,8 +17,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import nazianoorani.sportsfestapp.Adapter.SectionsPagerAdapter;
+import nazianoorani.sportsfestapp.drawerfragments.AboutFragment;
+import nazianoorani.sportsfestapp.drawerfragments.ContactFragment;
+import nazianoorani.sportsfestapp.drawerfragments.GalleryFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -33,6 +40,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private NavigationView navigationView;
+    private DrawerLayout drawer;
+    private LinearLayout fragCont;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,17 +60,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        fragCont = (LinearLayout) findViewById(R.id.fragcontainer);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
@@ -91,8 +103,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        return false;
+        int id = item.getItemId();
+
+        fragCont.setVisibility(View.VISIBLE);
+        mViewPager.setVisibility(View.GONE);
+        tabLayout.setVisibility(View.GONE);
+        if (id == R.id.home) {
+            tabLayout.setVisibility(View.VISIBLE);
+            mViewPager.setVisibility(View.VISIBLE);
+            fragCont.setVisibility(View.GONE);
+        } else if (id == R.id.gallery) {
+
+            getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragcontainer,
+                    new GalleryFragment()).commit();
+        } else if (id == R.id.contact) {
+
+            getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragcontainer,
+                    new ContactFragment()).commit();
+
+        } else if (id == R.id.aboutus) {
+            getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.fragcontainer,
+                    new AboutFragment()).commit();
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
+
+
 
     /**
      * A placeholder fragment containing a simple view.
@@ -103,4 +143,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * one of the sections/tabs/pages.
      */
 
+    @Override
+    public void onBackPressed() {
+
+        if(drawer.isDrawerOpen(navigationView))
+        {
+            drawer.closeDrawers();
+            return;
+        }
+
+        fragCont.setVisibility(View.GONE);
+        mViewPager.setVisibility(View.VISIBLE);
+        tabLayout.setVisibility(View.VISIBLE);
+
+    }
 }

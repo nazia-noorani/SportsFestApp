@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import com.joanzapata.pdfview.PDFView;
 
+import nazianoorani.sportsfestapp.util.EventName;
+
 /**
  * Created by nazianoorani on 20/04/16.
  */
@@ -21,12 +23,14 @@ public class RulesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_rules,container,false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         setHasOptionsMenu(true);
         pdfView = (PDFView) view.findViewById(R.id.pdfview);
         Bundle bundle = getArguments();
         if(bundle !=null){
            eventNo = bundle.getInt("eventNo");
         }
+        ((DetailsActivity) getActivity()).getSupportActionBar().setTitle(EventName.getEventName(eventNo)+" - Rules");
         initView();
 
         return view;

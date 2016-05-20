@@ -1,9 +1,11 @@
 package nazianoorani.sportsfestapp;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,8 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andreabaccega.widget.FormEditText;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -27,28 +31,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nazianoorani.sportsfestapp.networkmanager.AppController;
+import nazianoorani.sportsfestapp.util.Constants;
+import nazianoorani.sportsfestapp.util.EventName;
 
 /**
  * Created by nazianoorani on 20/04/16.
  */
 public class RegisterFragment extends Fragment implements AdapterView.OnItemSelectedListener,View.OnClickListener {
 
-    Button btnSubmit;
+    TextView btnSubmit;
     EditText editName,editEmail,editCollege,editMobNo;
     Spinner spinner;
+    ProgressDialog progressDialog;
+    String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+    private int eventNo;
+    String eventName = "";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register,container,false);
-        btnSubmit = (Button) view.findViewById(R.id.btn_submit);
+        Bundle bundle = getArguments();
+        if(bundle!= null) {
+            eventNo = bundle.getInt("eventNo");
+        }
+        eventName = EventName.getEventName(eventNo);
+        btnSubmit = (TextView) view.findViewById(R.id.btn_submit);
         editName = (EditText) view.findViewById(R.id.editName);
         editEmail = (EditText) view.findViewById(R.id.editEmail);
         editCollege = (EditText) view.findViewById(R.id.editCollege);
         editMobNo = (EditText) view.findViewById(R.id.editMobNo);
         btnSubmit.setOnClickListener(this);
 
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Registering");
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((DetailsActivity) getActivity()).getSupportActionBar().setTitle(eventName+" - Register");
 
         // Spinner element
         spinner = (Spinner) view.findViewById(R.id.spinner);
@@ -98,12 +117,37 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_submit :
-                register();
+                if(valid())
+                    register();
+                else Toast.makeText(getActivity(), "some data is invalid", Toast.LENGTH_SHORT).show();
         }
 
     }
 
+    public final static boolean isValidEmail(CharSequence target) {
+        if (target == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
+    }
+
+    private boolean valid() {
+
+        if(editMobNo.getText().length()== 10  && editCollege.getText().length()>0 &&
+                editName.getText().length()>0 &&
+                editEmail.getText() != null && isValidEmail(editEmail.getText().toString())){
+
+            return true;
+
+        }
+
+
+        return false;
+    }
+
     private void register() {
+        progressDialog.show();
         JSONObject params = null;
         try {
             params = buildParams();
@@ -111,10 +155,17 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
             e.printStackTrace();
         }
         if (params != null) {
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, "http://feedboard.in/api/reg_sports_ind/.php", params, new Response.Listener<JSONObject>() {
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constants.BASE_URL+"reg_sports_ind.php", params, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
-                    Toast.makeText(getActivity(),jsonObject.toString(),Toast.LENGTH_LONG).show();
+                    progressDialog.dismiss();
+                    Log.e("response", jsonObject.toString());
+                    if(jsonObject.optString("success").equalsIgnoreCase("1")) {
+                        Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_LONG).show();
+                        getActivity().onBackPressed();
+                    }
+                    else if(jsonObject.optString("success").equalsIgnoreCase("0"))
+                        Toast.makeText(getActivity(),"Email already registered",Toast.LENGTH_LONG).show();
 
                 }
             }, new Response.ErrorListener() {
@@ -124,7 +175,7 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
                     Toast.makeText(getActivity(),volleyError.toString(),Toast.LENGTH_LONG).show();
                 }
             });
-        AppController.getInstance().addToRequestQueue(request);
+            AppController.getInstance().addToRequestQueue(request);
         }
     }
     private JSONObject buildParams() throws JSONException {
@@ -134,8 +185,10 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
         params.put("email",editEmail.getText().toString());
         params.put("college",editCollege.getText().toString());
         params.put("gender",spinner.getSelectedItem().toString());
+        params.put("event",eventName);
 
         return params;
 
     }
+
 }

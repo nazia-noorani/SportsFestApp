@@ -33,7 +33,7 @@ public class DetailsIndividualFragment extends Fragment  {
         add("Schedule");
         add("Results");
         add("Register");
-        add("More");
+        add("Registered Teams");
     }};
 
     int eventNo;
@@ -78,17 +78,17 @@ public class DetailsIndividualFragment extends Fragment  {
 //                    imageView.setBackgroundResource(R.mipmap.ic_lt);
                     break;
                 case 4 :
-                    ImagesArray.add(R.mipmap.ic_athltcs);
-                    ImagesArray.add(R.mipmap.ic_athltcs);
-                    ImagesArray.add(R.mipmap.ic_tt);
-                    ((DetailsActivity) getActivity()).getSupportActionBar().setTitle("Cricket");
+                    ImagesArray.add(R.mipmap.img1);
+                    ImagesArray.add(R.mipmap.img2);
+                    ImagesArray.add(R.mipmap.img3);
+                    ((DetailsActivity) getActivity()).getSupportActionBar().setTitle("Athletics");
 //                    imageView.setBackgroundResource(R.mipmap.ic_ckt);
                     break;
                 case 5 :
-                    ImagesArray.add(R.mipmap.ic_chess);
-                    ImagesArray.add(R.mipmap.ic_chess);
-                    ImagesArray.add(R.mipmap.ic_ckt);
-                    ((DetailsActivity) getActivity()).getSupportActionBar().setTitle("Cricket");
+                    ImagesArray.add(R.mipmap.img1);
+                    ImagesArray.add(R.mipmap.img2);
+                    ImagesArray.add(R.mipmap.img3);
+                    ((DetailsActivity) getActivity()).getSupportActionBar().setTitle("Chess");
 //                    imageView.setBackgroundResource(R.mipmap.ic_ckt);
                     break;
                 case 6 :
@@ -100,7 +100,7 @@ public class DetailsIndividualFragment extends Fragment  {
                     break;
                 case 7 :
                     ImagesArray.add(R.mipmap.img_fb1);
-                    ImagesArray.add(R.mipmap.ic_fb);
+                    ImagesArray.add(R.mipmap.img5);
                     ImagesArray.add(R.mipmap.img_fb3);
                     ((DetailsActivity) getActivity()).getSupportActionBar().setTitle("Football");
 //                    imageView.setBackgroundResource(R.mipmap.ic_fb);
@@ -108,7 +108,7 @@ public class DetailsIndividualFragment extends Fragment  {
                 case 8 :
                     ImagesArray.add(R.mipmap.img_bb1);
                     ImagesArray.add(R.mipmap.img_bb2);
-                    ImagesArray.add(R.mipmap.ic_bb);
+                    ImagesArray.add(R.mipmap.img5);
                     ((DetailsActivity) getActivity()).getSupportActionBar().setTitle("Basketball");
 //                    imageView.setBackgroundResource(R.mipmap.ic_bb);
                     break;
@@ -183,11 +183,12 @@ public class DetailsIndividualFragment extends Fragment  {
                         replace(R.id.fragment_container, fragment).commit();
                 break;
             case 4 :
-                fragment = new MoreFragment();
+                fragment = new RegisteredTeamsFragment();
                 fragment.setArguments(bundle);
                 fragmentManager.beginTransaction().addToBackStack(null).
                         replace(R.id.fragment_container, fragment).commit();
                 break;
+
         }
     }
     private void init(View view) {
